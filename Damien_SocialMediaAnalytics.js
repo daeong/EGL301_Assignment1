@@ -10,19 +10,19 @@ const posts = [
 
 
 module.exports = {
-    getEngagementRate(postid, totalFollowers) {   //calculate engagement rate by postid
-        const post = posts.find(post => post.postid === postid); 
+    getEngagementRate(postid, totalFollowers) {   //Calculates the engagement rate for a specific post
+        const post = posts.find(post => post.postid === postid);    //finds the specified postid 
         if (!post) {
             console.log(`Post ${postid} does not exist.`);
             return null;
         }
         const { likes, comments, shares } = post;
-        const engagementRate = ((likes + comments + shares) / totalFollowers) * 100;    //engagement rate formula
+        engagementRate = ((likes + comments + shares) / totalFollowers) * 100;    //engagement rate formula
         console.log(`========== Engagement rate for post ${postid} ==========`);
         console.log(`Engagement rate for post ${postid}: ${engagementRate.toFixed(2)}%`);
     },
 
-    getTotalEngagementRate(userid, totalFollowers){     //calculate total engagement rate by userid
+    getTotalEngagementRate(userid, totalFollowers){     //Calculate total engagement rate by userid
         const userPosts = posts.filter(post => post.userid === userid)
         if(userPosts.length === 0){
             console.log(`No posts can be found for user ${userid}`)
@@ -42,33 +42,33 @@ module.exports = {
         console.log(`Total Engagement Rate for ${userid} is ${engagementRate.toFixed(2)}%`);
     },
 
-    getTopPost(userid){
-        const userPosts = posts.filter(post => post.userid === userid);
+    getTopPost(userid){     //Get the most liked post for specified user
+        const userPosts = posts.filter(post => post.userid === userid);     
         if(userPosts.length === 0){
             console.log(`No posts can be found for user ${userid}`)
         }else
-        sortedPosts = userPosts.sort((a, b) => b.likes - a.likes);  //sort posts by descending order
+        sortedPosts = userPosts.sort((a, b) => b.likes - a.likes);  //sort posts by descending order through comparing two values at a time
         mostLikedPost = sortedPosts[0];
         console.log(`========== Most Liked Post for ${userid} ==========`);
         console.log(`${userid} most liked post is post: ${mostLikedPost.postid}`);
     },
 
-    getPostCount(){
-        const postCount = posts.reduce((count, post) =>{
-            count[post.userid] = (count[post.userid] || 0)+1;
+    getPostCount(){     //Gets the total number post that each user have
+        const postCount = posts.reduce((count, post) =>{        //iterates through all post and accumulate the post count
+            count[post.userid] = (count[post.userid] || 0)+1;       //0 is default value, add 1 to count if a post is found in the array
             return count;
         }, {});
         console.log(`========== Post Counts for each User ==========`);
         console.log("Post Counts for each user:", postCount)
     },
 
-    getSentimentAnalysis(postid){
+    getSentimentAnalysis(postid){   //Gets the sentiment analysis based on the specified postid
         const post = posts.find(post => post.postid === postid); 
         if (!post) {
             console.log(`Post ${postid} does not exist.`);
             return null;
         }else
-        sentiments = post.commentDetails.reduce((sentimentCount, comment)=>{
+        sentiments = post.commentDetails.reduce((sentimentCount, comment)=>{    //iterates through all commentDetails and accumulate the count value
             sentimentCount[comment.sentiment] = (sentimentCount[comment.sentiment] || 0)+1;
             return sentimentCount
         }, {Positive: 0, Negative: 0, Neutral: 0});
@@ -78,24 +78,5 @@ module.exports = {
         console.log(`Neutral Comments: ${sentiments.Neutral}`);
     },
 
-    getSentimentAnalysisByUser(userid) {
-        const userPosts = posts.filter(post => post.userid === userid);
-        if(userPosts.length === 0) {
-            console.log(`No posts can be found for user ${userid}`);
-            return;
-        }
-
-        const allSentiments = userPosts.reduce((sentimentCount, post) => {
-            post.commentDetails.forEach(comment => {
-                sentimentCount[comment.sentiment] = (sentimentCount[comment.sentiment] || 0) + 1;
-            });
-            return sentimentCount;
-        }, { Positive: 0, Negative: 0, Neutral: 0 });
-
-        console.log(`========== Sentiment Analysis for ${userid} ==========`);
-        console.log(`Positive Comments: ${allSentiments.Positive}`);
-        console.log(`Negative Comments: ${allSentiments.Negative}`);
-        console.log(`Neutral Comments: ${allSentiments.Neutral}`);
-    }
 };
 
