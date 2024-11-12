@@ -6,5 +6,5 @@ socialMediaAnalytics.getTotalEngagementRate('user0104', 780);
 socialMediaAnalytics.getTopPost('user2005');
 socialMediaAnalytics.getPostCount();
 socialMediaAnalytics.getSentimentAnalysis(2);
-socialMediaAnalytics.getSentimentAnalysisByUser('user0104');
+socialMediaAnalytics.getAllPosts();
 
