@@ -78,5 +78,12 @@ module.exports = {
         console.log(`Neutral Comments: ${sentiments.Neutral}`);
     },
 
+    getAllPosts() {
+        console.log("========== All Posts ==========");
+        posts.forEach(post => {
+            console.log(`Post ID: ${post.postid}, User ID: ${post.userid}, Likes: ${post.likes}, Comments: ${post.comments}, Shares: ${post.shares}`);
+        });
+        return posts;
+    }
 };
 

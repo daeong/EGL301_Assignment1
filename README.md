@@ -20,6 +20,8 @@ The function wil first use the .reduce() method to iterate through all the posts
 5) getSentimentAnalysis - This function provides a breakdown of the positive, negative and neutral comments for specific post.
 The function will first take in one parameter postid, followed by finding the specified post using the .find() method. If the post exists, it uses the .reduce() method to iterate through each commentsDetails and output it to "Positive", "Negative", "Neutral" which are all set to 0 at first and increases the number based on the comment details. Else if the post does not exist, an error message appears.
 
+6) getAllPost - This function retrieves all the post with its info.
+The function will iterate through all the post in the post array and return each of the post info and output it onto the console.
 
 You will only need one file, ie, your node module, for this assignment.
 
